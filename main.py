@@ -1,9 +1,6 @@
 def get_text(filepath):
     with open("books/frankenstein.txt") as f:
         return f.read()
-        
-        #print(len(words))
-        return len(words)
 
 def count_words(text):
     words = text.split()
@@ -19,13 +16,27 @@ alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q",
 
 
 def main():
-    text = get_text("books/frankenstein.txt")
-    
+    book_path = "books/frankenstein.txt"
+    print(f"--- Begin report of {book_path} ---")
+    text = get_text(book_path)
+
+    word_count = count_words(text)
+
+    print(f"{word_count} words found in the document ---")
+    print("")
+
     letter_counts = count_letters(text.lower())
 
-    for letter in letter_counts:
-        count = letter_counts[letter]
-        print(f"{letter} appears {count} times.")
+    letter_counts_list = []
 
+    for letter in letter_counts:
+        letter_counts_list.append((letter_counts[letter], letter))
+        
+    letter_counts_list.sort(reverse=True)
+
+    for i in range(0, len(letter_counts_list)):
+        print(f"The '{letter_counts_list[i][1]}' character was found {letter_counts_list[i][0]} times")
+
+    print(f"--- End report ---")
 
 main()
