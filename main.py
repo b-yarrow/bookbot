@@ -1,16 +1,13 @@
+from stats import count_words
+from stats import count_letters
+
 def get_text(filepath):
     with open("books/frankenstein.txt") as f:
         return f.read()
 
-def count_words(text):
-    words = text.split()
-    return len(words)
 
-def count_letters(text):
-    letter_dict ={}
-    for letter in alphabet:
-        letter_dict[letter] = text.count(letter)
-    return letter_dict
+
+
 
 alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","x","y","z"]
 
