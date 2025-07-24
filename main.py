@@ -1,39 +1,38 @@
+import sys
 from stats import count_words
-from stats import count_letters
+from stats import count_chars
+from stats import sort_chars
 
 def get_text(filepath):
-    with open("books/frankenstein.txt") as f:
+    with open(filepath) as f:
         return f.read()
 
-
-
-
-
-alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","x","y","z"]
-
-
 def main():
-    book_path = "books/frankenstein.txt"
-    print(f"--- Begin report of {book_path} ---")
+    #book_path = "books/frankenstein.txt"
+
+    if len(sys.argv) != 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+
+    book_path = sys.argv[1]
+
+    print("============ BOOKBOT ============")
+    print(f"Analyzing book found at {book_path}... ")
     text = get_text(book_path)
 
     word_count = count_words(text)
+    print("----------- Word Count ----------")
+    print(f"Found {word_count} total words")
+    print("--------- Character Count -------")
 
-    print(f"{word_count} words found in the document ---")
-    print("")
+    char_counts = count_chars(text)
 
-    letter_counts = count_letters(text.lower())
+    sorted_chars = sort_chars(char_counts)
 
-    letter_counts_list = []
+    for i in range(0, len(sorted_chars)):
+        if sorted_chars[i]["char"].isalpha():
+            print(f"{sorted_chars[i]["char"]}: {sorted_chars[i]["num"]}")
 
-    for letter in letter_counts:
-        letter_counts_list.append((letter_counts[letter], letter))
-        
-    letter_counts_list.sort(reverse=True)
-
-    for i in range(0, len(letter_counts_list)):
-        print(f"The '{letter_counts_list[i][1]}' character was found {letter_counts_list[i][0]} times")
-
-    print(f"--- End report ---")
+    print("============= END ===============")
 
 main()
